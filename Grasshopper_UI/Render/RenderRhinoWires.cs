@@ -28,6 +28,9 @@ using System.Drawing;
 using BH.oM.Reflection.Attributes;
 using System.Collections.Generic;
 using GH = Grasshopper;
+using BH.oM.Base;
+using BH.oM.Geometry;
+using BH.Engine.Rhinoceros;
 
 namespace BH.UI.Grasshopper
 { 
@@ -37,13 +40,13 @@ namespace BH.UI.Grasshopper
         /**** Public Methods  - Interfaces              ****/
         /***************************************************/
 
-        public static void IRenderRhinoWires(this object geometry, GH_PreviewWireArgs args)
+        public static void IRenderRhinoWires(this object geometry, GH_PreviewWireArgs args, Color custom)
         {
             if (geometry == null)
             {
                 return;
             }
-            Color bhColour = RenderColour(args.Color);
+            Color bhColour = RenderColour(args.Color, custom);
             try
             {
                 RenderRhinoWires(geometry as dynamic, args.Pipeline, bhColour);
@@ -171,7 +174,6 @@ namespace BH.UI.Grasshopper
                 pipeline.DrawPolyline(poly, bhColour, 2);
         }
 
-
         /***************************************************/
         /**** Public Methods  - Surfaces                ****/
         /***************************************************/
@@ -247,6 +249,17 @@ namespace BH.UI.Grasshopper
         public static void RenderRhinoWires(RHG.BoundingBox bbBox, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
         {
             pipeline.DrawBox(bbBox, bhColour, 2);
+        }
+
+
+        /***************************************************/
+        /**** Public Methods  - Representations         ****/
+        /***************************************************/
+
+        public static void RenderRhinoWires(Text3d text3D, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        {
+
+            pipeline.Draw3dText(text3D, bhColour, text3D.TextPlane); 
         }
 
         /***************************************************/

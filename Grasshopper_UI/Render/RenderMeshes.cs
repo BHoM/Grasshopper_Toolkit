@@ -49,7 +49,7 @@ namespace BH.UI.Grasshopper
             {
                 return;
             }
-            DisplayMaterial bhMaterial = RenderMaterial(args.Material);
+            DisplayMaterial bhMaterial = RenderMaterial(args.Material, Color.FromArgb(80, 255, 41, 105));//BHoM pink!
             try
             {
                 RenderMeshes(geometry as dynamic, args.Pipeline, bhMaterial);

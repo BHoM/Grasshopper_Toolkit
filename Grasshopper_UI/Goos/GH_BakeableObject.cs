@@ -34,6 +34,7 @@ using GH_IO;
 using GH_IO.Serialization;
 using BH.Engine.Serialiser;
 using BH.Engine.Reflection;
+using System.Drawing;
 
 namespace BH.UI.Grasshopper.Goos
 {
@@ -154,7 +155,7 @@ namespace BH.UI.Grasshopper.Goos
                     return false;
                 }
             }
-                
+
 
             return true;
         }
@@ -173,7 +174,7 @@ namespace BH.UI.Grasshopper.Goos
         public virtual void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
             if (m_RhinoGeometry != null)
-                Render.IRenderRhinoMeshes(m_RhinoGeometry, args);
+                Render.IRenderRhinoMeshes(m_RhinoGeometry, args, m_Color);
         }
 
         /***************************************************/
@@ -181,7 +182,7 @@ namespace BH.UI.Grasshopper.Goos
         public virtual void DrawViewportWires(GH_PreviewWireArgs args)
         {
             if (m_RhinoGeometry != null)
-                Render.IRenderRhinoWires(m_RhinoGeometry, args);
+                Render.IRenderRhinoWires(m_RhinoGeometry, args, m_Color);
         }
 
 
@@ -195,6 +196,14 @@ namespace BH.UI.Grasshopper.Goos
             {
                 return true;
             }
+            else if (Value is IRepresentation)
+            {
+                m_RhinoGeometry = (Value as IRepresentation).IToRhino();
+                m_Color = (Value as IRepresentation).Colour;
+                if(Value is GeometricalRepresentation)
+                    m_Geometry = (Value as GeometricalRepresentation).Geometry;
+                return true;
+            }
             else if (Value is BHoMObject)
             {
                 m_Geometry = (Value as BHoMObject).IGeometry();
@@ -205,6 +214,7 @@ namespace BH.UI.Grasshopper.Goos
             {
                 m_Geometry = Value as IGeometry;
                 m_RhinoGeometry = m_Geometry.IToRhino();
+                m_Color = Color.FromArgb(80, 255, 41, 105);//BHoM pink!
                 return true;
             }
             else
@@ -266,8 +276,8 @@ namespace BH.UI.Grasshopper.Goos
 
         protected object m_RhinoGeometry = null;
 
+        protected Color m_Color = new Color();
+
         /***************************************************/
     }
 }
-
-

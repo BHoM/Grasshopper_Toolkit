@@ -43,7 +43,7 @@ namespace BH.UI.Grasshopper
             {
                 return;
             }
-            Color bhColour = RenderColour(args.Color);
+            Color bhColour = RenderColour(args.Color, Color.FromArgb(80, 255, 41, 105));//BHoM pink!
             try
             {
                 RenderWires(geometry as dynamic, args.Pipeline, bhColour);

@@ -26,6 +26,9 @@ using Grasshopper.Kernel;
 using System;
 using BH.oM.Reflection.Attributes;
 using System.Collections.Generic;
+using BH.oM.Geometry;
+using System.Drawing;
+using BH.Engine.Rhinoceros;
 
 namespace BH.UI.Grasshopper
 {
@@ -35,17 +38,17 @@ namespace BH.UI.Grasshopper
         /**** Public Methods  - Interfaces              ****/
         /***************************************************/
 
-        public static void IRenderRhinoMeshes(this object geometry, GH_PreviewMeshArgs args)
+        public static void IRenderRhinoMeshes(this object obj, GH_PreviewMeshArgs args, Color custom)
         {
-            if (geometry == null)
+            if (obj == null)
             {
                 return;
             }
-            DisplayMaterial bhMaterial = RenderMaterial(args.Material);
+            DisplayMaterial material = RenderMaterial(args.Material, custom);
 
             try
             {
-                RenderRhinoMeshes(geometry as dynamic, args.Pipeline, bhMaterial);
+                RenderRhinoMeshes(obj as dynamic, args.Pipeline, material);
             }
             catch (Exception) { }
         }
@@ -155,8 +158,6 @@ namespace BH.UI.Grasshopper
         {
             pipeline.DrawBrepShaded(bbBox.ToBrep(), material);
         }
-
-        /***************************************************/
     }
 }
 

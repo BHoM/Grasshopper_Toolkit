@@ -32,7 +32,7 @@ namespace BH.UI.Grasshopper
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static DisplayMaterial RenderMaterial(DisplayMaterial material)
+        public static DisplayMaterial RenderMaterial(DisplayMaterial material, Color custom)
         {
             Color pColour = GH.Instances.ActiveCanvas.Document.PreviewColour;
             Color ghColour = material.Diffuse;
@@ -40,7 +40,7 @@ namespace BH.UI.Grasshopper
                 ghColour.G == pColour.G &
                 ghColour.B == pColour.B) // Excluding Alpha channel from comparison
             {
-                return new DisplayMaterial(Color.FromArgb(255, 255, 41, 105), 0.6);
+                return new DisplayMaterial(custom, 0.6);//transparency hard coded but eventually we should have full material props in represenatation 
             }
             else
             {
