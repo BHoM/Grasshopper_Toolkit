@@ -118,6 +118,13 @@ namespace BH.UI.Grasshopper.Templates
         /**** GH_Component Override Methods     ****/
         /*******************************************/
 
+        public override void CreateAttributes()
+        {
+            this.m_attributes = new CallerAttribute(this);
+        }
+
+        /*******************************************/
+
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             Accessor.GH_Accessor = DA;

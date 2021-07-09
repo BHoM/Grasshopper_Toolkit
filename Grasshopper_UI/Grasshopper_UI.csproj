@@ -153,6 +153,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CallerComponent\CallerAttribute.cs" />
     <Compile Include="CallerComponent\OnGHParamChanged.cs" />
     <Compile Include="CallerComponent\OnCallerModified.cs" />
     <Compile Include="CallerComponent\IGH_InitCodeAware.cs" />
@@ -313,6 +314,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\Resources\Adapter.png" />
+    <None Include="Resources\alpha.png" />
     <None Include="Properties\Resources\BHoM_Grasshopper_Icon.png" />
     <None Include="Properties\Resources\BHoMObject_Param.png" />
     <None Include="Properties\Resources\BHoM_Logo.png" />
